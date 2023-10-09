@@ -46,6 +46,9 @@ return {
                       ["async-recursion"] = { "async_recursion" },
                     },
                   },
+                  rustc = {
+                    source = "discover",
+                  },
                 },
               },
             },
