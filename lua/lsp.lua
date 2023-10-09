@@ -73,6 +73,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "rust_analyzer",
+          "clangd",
         },
         automatic_installation = true,
         handlers = handlers,
@@ -186,7 +187,7 @@ return {
     },
     config = function()
       require("mason-null-ls").setup({
-        ensure_installed = { "stylua", "shfmt" },
+        ensure_installed = { "stylua", "shfmt", "clang-format" },
         automatic_installation = true,
       })
     end,
