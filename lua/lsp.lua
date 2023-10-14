@@ -21,30 +21,14 @@ return {
           vim.g.rustfmt_autosave = 1
           require("rust-tools").setup({
             server = {
-              capabilities = require("cmp_nvim_lsp").default_capabilities(),
               settings = {
                 ["rust-analyzer"] = {
                   lens = {
                     enable = false,
                   },
-                  cargo = {
-                    allFeatures = true,
-                    loadOutDirsFromCheck = true,
-                    runBuildScripts = true,
-                  },
                   -- Add clippy lints for Rust.
                   checkOnSave = {
-                    allFeatures = true,
                     command = "clippy",
-                    extraArgs = { "--no-deps" },
-                  },
-                  procMacro = {
-                    enable = true,
-                    ignored = {
-                      ["async-trait"] = { "async_trait" },
-                      ["napi-derive"] = { "napi" },
-                      ["async-recursion"] = { "async_recursion" },
-                    },
                   },
                   rustc = {
                     source = "discover",
