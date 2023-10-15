@@ -165,13 +165,6 @@ return {
   "L3MON4D3/LuaSnip",
   "saadparwaiz1/cmp_luasnip",
   {
-    "folke/neodev.nvim",
-    opts = {},
-    config = function()
-      require("neodev").setup()
-    end,
-  },
-  {
     "stevearc/conform.nvim",
     opts = {},
     config = function()
