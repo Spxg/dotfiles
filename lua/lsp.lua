@@ -50,9 +50,6 @@ return {
         end,
         -- Next, you can provide targeted overrides for specific servers.
         ["rust_analyzer"] = function()
-          vim.g.rustfmt_fail_silently = 0
-          vim.g.rustfmt_autosave = 1
-
           handler("rust_analyzer", {
             ["rust-analyzer"] = {
               lens = {
@@ -174,38 +171,42 @@ return {
       require("neodev").setup()
     end,
   },
-  -- formatters
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "mason.nvim" },
-    opts = function()
-      local nls = require("null-ls")
-      return {
-        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-        sources = {
-          nls.builtins.formatting.fish_indent,
-          nls.builtins.diagnostics.fish,
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.shfmt,
-          -- nls.builtins.diagnostics.flake8,
-        },
-      }
-    end,
-  },
-  {
-    "jay-babu/mason-null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "williamboman/mason.nvim",
-      "jose-elias-alvarez/null-ls.nvim",
-    },
+    "stevearc/conform.nvim",
+    opts = {},
     config = function()
-      require("mason-null-ls").setup({
-        ensure_installed = { "stylua", "shfmt", "clang-format" },
-        automatic_installation = true,
+      require("conform").setup({
+        -- Map of filetype to formatters
+        formatters_by_ft = {
+          lua = { "stylua" },
+          -- Conform will run multiple formatters sequentially
+          python = { "isort", "black" },
+          -- Use a sub-list to run only the first available formatter
+          javascript = { { "prettierd", "prettier" } },
+          rust = { "rustfmt" },
+          -- Use the "*" filetype to run formatters on all filetypes.
+          ["*"] = { "codespell" },
+          -- Use the "_" filetype to run formatters on filetypes that don't
+          -- have other formatters configured.
+          ["_"] = { "trim_whitespace" },
+        },
+        -- If this is set, Conform will run the formatter on save.
+        -- It will pass the table to conform.format().
+        -- This can also be a function that returns the table.
+        format_on_save = {
+          -- I recommend these options. See :help conform.format for details.
+          lsp_fallback = true,
+          timeout_ms = 500,
+        },
+        -- If this is set, Conform will run the formatter asynchronously after save.
+        -- It will pass the table to conform.format().
+        -- This can also be a function that returns the table.
+        format_after_save = {
+          lsp_fallback = true,
+        },
       })
     end,
   },
+
   "rust-lang/rust.vim",
 }
