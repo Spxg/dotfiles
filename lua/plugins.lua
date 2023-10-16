@@ -62,8 +62,25 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
-    config = function(_, opts)
-      require("lualine").setup(opts)
+    config = function()
+      require("lualine").setup({
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "branch", "diff", "diagnostics", { "filename", file_status = false, path = 1 } },
+          lualine_c = {},
+          lualine_x = { "encoding", "fileformat", "filetype" },
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
+        },
+        inactive_sections = {
+          lualine_c = {},
+          lualine_x = { "location" },
+        },
+        tabline = {},
+        winbar = {},
+        inactive_winbar = {},
+        extensions = {},
+      })
     end,
   },
   {
