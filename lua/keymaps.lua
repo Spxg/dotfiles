@@ -64,6 +64,10 @@ vim.api.nvim_create_autocmd("FileType", {
 -- enter normal mode
 vim.keymap.set("t", "<c-n>", "<c-\\><c-n>")
 
+-- treesitter-context
 vim.keymap.set("n", "[c", function()
   require("treesitter-context").go_to_context()
 end, { silent = true })
+
+-- treesitter-context
+vim.keymap.set("n", "<leader>so", "<cmd>SymbolsOutline<CR>")
