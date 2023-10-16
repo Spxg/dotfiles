@@ -197,6 +197,7 @@ return {
         format_after_save = {
           lsp_fallback = true,
         },
+        notify_on_error = false,
       })
     end,
   },
