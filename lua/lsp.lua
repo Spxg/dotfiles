@@ -1,98 +1,5 @@
 return {
   {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      local handler = function(server_name, settings)
-        local M = {}
-
-        require("lspconfig")[server_name].setup({
-          -- https://neovim.io/doc/user/lsp.html#lsp-api
-          handlers = {
-            -- When the LSP is ready, enable inlay hint for existing bufnr again.
-            -- Learn from rust-tools.nvim
-            ["experimental/serverStatus"] = function(_, result, ctx, _)
-              if result.quiescent and not M.ran_once then
-                for _, bufnr in ipairs(vim.lsp.get_buffers_by_client_id(ctx.client_id)) do
-                  -- First, toggle disable because bufstate.applied
-                  -- prevents vim.lsp.inlay_hint(bufnr, true) from refreshing.
-                  -- Therefore, we need to clear bufstate.applied.
-                  vim.lsp.inlay_hint(bufnr)
-                  -- toggle enable
-                  vim.lsp.inlay_hint(bufnr)
-                end
-                M.ran_once = true
-              end
-            end,
-          },
-          -- If the LSP is not ready, the inlay hint character is empty,
-          -- this usually occurs during the first attach.
-          on_attach = function(client, bufnr)
-            if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-              vim.lsp.inlay_hint(bufnr, true)
-            end
-          end,
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
-          settings = settings,
-        })
-      end
-      local handlers = {
-        -- The first entry (without a key) will be the default handler
-        -- and will be called for each installed server that doesn't have
-        -- a dedicated handler.
-        function(server_name) -- default handler (optional)
-          handler(server_name, {})
-        end,
-        -- Next, you can provide targeted overrides for specific servers.
-        ["rust_analyzer"] = function()
-          handler("rust_analyzer", {
-            ["rust-analyzer"] = {
-              lens = {
-                enable = false,
-              },
-              -- Add clippy lints for Rust.
-              checkOnSave = {
-                command = "clippy",
-              },
-              rustc = {
-                source = "discover",
-              },
-            },
-          })
-        end,
-        ["lua_ls"] = function()
-          handler("lua_ls", {
-            Lua = {
-              workspace = {
-                checkThirdParty = false,
-              },
-              completion = {
-                callSnippet = "Replace",
-              },
-              diagnostics = {
-                globals = { "vim" },
-              },
-            },
-          })
-        end,
-      }
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "lua_ls",
-          "rust_analyzer",
-          "clangd",
-        },
-        automatic_installation = true,
-        handlers = handlers,
-      })
-    end,
-  },
-  {
     "neovim/nvim-lspconfig",
     config = function()
       -- Global mappings.
@@ -183,14 +90,6 @@ return {
           -- have other formatters configured.
           ["_"] = { "trim_whitespace" },
         },
-        -- If this is set, Conform will run the formatter on save.
-        -- It will pass the table to conform.format().
-        -- This can also be a function that returns the table.
-        format_on_save = {
-          -- I recommend these options. See :help conform.format for details.
-          lsp_fallback = true,
-          timeout_ms = 500,
-        },
         -- If this is set, Conform will run the formatter asynchronously after save.
         -- It will pass the table to conform.format().
         -- This can also be a function that returns the table.
@@ -203,4 +102,5 @@ return {
   },
 
   "rust-lang/rust.vim",
+  { "folke/neodev.nvim", opts = {} },
 }

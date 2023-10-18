@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 vim.opt.termguicolors = true
 vim.opt.list = true
 vim.opt.number = true
@@ -56,3 +54,95 @@ vim.api.nvim_create_user_command("Go", function(opts)
   go_to_file(opts.fargs[1])
 end, { nargs = 1 })
 
+local function json_file(path)
+  local file = io.open(path, "rb")
+  if not file then
+    return {}
+  end
+  local content = file:read("*a")
+  file:close()
+  return { vim.json.decode(content) } or {}
+end
+
+-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+local servers = {
+  {
+    "rust_analyzer",
+    function()
+      local default = {
+        ["rust-analyzer"] = {
+          lens = {
+            enable = false,
+          },
+          -- Add clippy lints for Rust.
+          checkOnSave = {
+            command = "clippy",
+          },
+          rustc = {
+            source = "discover",
+          },
+        },
+      }
+      local lsp_config = json_file(vim.fn.getcwd() .. "/._nvimlspra.json")
+      for _, config in ipairs(lsp_config) do
+        default = {
+          ["rust-analyzer"] = config,
+        }
+      end
+      return default
+    end,
+  },
+  {
+    "lua_ls",
+    function()
+      return {
+        Lua = {
+          workspace = {
+            checkThirdParty = false,
+          },
+          completion = {
+            callSnippet = "Replace",
+          },
+          diagnostics = {
+            globals = { "vim" },
+          },
+        },
+      }
+    end,
+  },
+}
+
+for _, lsp in ipairs(servers) do
+  local M = {}
+
+  require("lspconfig")[lsp[1]].setup({
+    -- on_attach = my_custom_on_attach,
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    -- https://neovim.io/doc/user/lsp.html#lsp-api
+    handlers = {
+      -- When the LSP is ready, enable inlay hint for existing bufnr again.
+      -- Learn from rust-tools.nvim
+      ["experimental/serverStatus"] = function(_, result, ctx, _)
+        if result.quiescent and not M.ran_once then
+          for _, bufnr in ipairs(vim.lsp.get_buffers_by_client_id(ctx.client_id)) do
+            -- First, toggle disable because bufstate.applied
+            -- prevents vim.lsp.inlay_hint(bufnr, true) from refreshing.
+            -- Therefore, we need to clear bufstate.applied.
+            vim.lsp.inlay_hint(bufnr)
+            -- toggle enable
+            vim.lsp.inlay_hint(bufnr)
+          end
+          M.ran_once = true
+        end
+      end,
+    },
+    -- If the LSP is not ready, the inlay hint character is empty,
+    -- this usually occurs during the first attach.
+    on_attach = function(client, bufnr)
+      if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+        vim.lsp.inlay_hint(bufnr, true)
+      end
+    end,
+    settings = lsp[2](),
+  })
+end

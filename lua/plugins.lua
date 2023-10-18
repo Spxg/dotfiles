@@ -1,16 +1,4 @@
 return {
-  -- {
-  --   "ellisonleao/gruvbox.nvim",
-  --   priority = 1000,
-  --   config = function()
-  --     require("gruvbox").setup({
-  --       palette_overrides = {
-  --         bright_red = "#ed6555",
-  --       },
-  --     })
-  --     vim.cmd([[colorscheme gruvbox]])
-  --   end,
-  -- },
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -81,13 +69,6 @@ return {
     end,
   },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require("ibl").setup()
-    end,
-  },
-
-  {
     "ibhagwan/fzf-lua",
     -- optional for icon support
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -111,32 +92,13 @@ return {
       })
     end,
   },
-
   "tpope/vim-unimpaired",
-
   {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-    opts = {
-      cmdline = {
-        enabled = false,
-      },
-      messages = {
-        enabled = false,
-      },
-      popupmenu = {
-        enabled = false,
-      },
-      notify = {
-        enabled = false,
-      },
-    },
+    "j-hui/fidget.nvim",
+    tag = "legacy",
+    event = "LspAttach",
+    opts = {},
   },
-
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -169,39 +131,7 @@ return {
       "MunifTanjim/nui.nvim",
     },
   },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      local configs = require("nvim-treesitter.configs")
 
-      configs.setup({
-        ensure_installed = { "rust", "c", "lua", "vim", "vimdoc", "bash", "python" },
-        sync_install = false,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    config = function()
-      require("treesitter-context").setup({
-        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-        line_numbers = true,
-        multiline_threshold = 20, -- Maximum number of lines to show for a single context
-        trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-        mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
-        -- Separator between context and content. Should be a single character string, like '-'.
-        -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-        separator = nil,
-        zindex = 20, -- The Z-index of the context window
-        on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-      })
-    end,
-  },
   {
     "kdheepak/lazygit.nvim",
     dependencies = {
@@ -227,12 +157,43 @@ return {
       require("illuminate").configure(opts)
     end,
   },
+
   {
-    "saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
     config = function()
-      require("crates").setup()
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+        ensure_installed = { "rust", "c", "lua", "vim", "vimdoc", "bash", "python" },
+        sync_install = false,
+        highlight = { enable = false },
+      })
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    config = function()
+      require("treesitter-context").setup({
+        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+        line_numbers = true,
+        multiline_threshold = 20, -- Maximum number of lines to show for a single context
+        trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+        mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
+        -- Separator between context and content. Should be a single character string, like '-'.
+        -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+        separator = nil,
+        zindex = 20, -- The Z-index of the context window
+        on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+      })
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("ibl").setup()
     end,
   },
   {
