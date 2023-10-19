@@ -71,3 +71,5 @@ end, { silent = true })
 
 -- treesitter-context
 vim.keymap.set("n", "<leader>so", "<cmd>SymbolsOutline<CR>")
+
+vim.keymap.set("n", "gp", "<cmd>Gop<CR>")
