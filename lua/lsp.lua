@@ -1,5 +1,11 @@
 return {
   {
+    "folke/neoconf.nvim",
+    config = function()
+      require("neoconf").setup({})
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       -- Global mappings.

@@ -64,58 +64,12 @@ local function json_file(path)
   return { vim.json.decode(content) } or {}
 end
 
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = {
-  {
-    "rust_analyzer",
-    function()
-      local default = {
-        ["rust-analyzer"] = {
-          lens = {
-            enable = false,
-          },
-          -- Add clippy lints for Rust.
-          checkOnSave = {
-            command = "clippy",
-          },
-          rustc = {
-            source = "discover",
-          },
-        },
-      }
-      local lsp_config = json_file(vim.fn.getcwd() .. "/._nvimlspra.json")
-      for _, config in ipairs(lsp_config) do
-        default = {
-          ["rust-analyzer"] = config,
-        }
-      end
-      return default
-    end,
-  },
-  {
-    "lua_ls",
-    function()
-      return {
-        Lua = {
-          workspace = {
-            checkThirdParty = false,
-          },
-          completion = {
-            callSnippet = "Replace",
-          },
-          diagnostics = {
-            globals = { "vim" },
-          },
-        },
-      }
-    end,
-  },
-}
+local servers = { "rust_analyzer", "lua_ls" }
 
 for _, lsp in ipairs(servers) do
   local M = {}
 
-  require("lspconfig")[lsp[1]].setup({
+  require("lspconfig")[lsp].setup({
     -- on_attach = my_custom_on_attach,
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     -- https://neovim.io/doc/user/lsp.html#lsp-api
@@ -143,6 +97,5 @@ for _, lsp in ipairs(servers) do
         vim.lsp.inlay_hint(bufnr, true)
       end
     end,
-    settings = lsp[2](),
   })
 end
