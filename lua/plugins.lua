@@ -123,15 +123,20 @@ return {
     },
   },
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons",
     },
+    config = function()
+      require("nvim-tree").setup({
+        view = {
+          width = 40,
+        },
+      })
+    end,
   },
-
   {
     "kdheepak/lazygit.nvim",
     dependencies = {
