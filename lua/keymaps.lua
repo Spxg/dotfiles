@@ -2,7 +2,7 @@ vim.keymap.set("n", "<leader><leader>", "<cmd>FzfLua files<CR>")
 vim.keymap.set("n", "<leader>sg", "<cmd>FzfLua grep<CR>")
 vim.keymap.set("n", "<leader>sb", "<cmd>FzfLua buffers<CR>")
 vim.keymap.set("n", "<leader>sr", "<cmd>FzfLua resume<CR>")
-vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeFindFile<CR>")
+vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
 vim.keymap.set("n", "<leader>p", function()
   vim.cmd.wincmd("w")
 end)
@@ -31,9 +31,7 @@ end)
 vim.keymap.set("v", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>")
 
 -- nvim-spectre
-vim.keymap.set("n", "<leader>fr", function()
-  require("spectre").open()
-end)
+vim.keymap.set("n", "<leader>fr", "<cmd>lua require('spectre').toggle()<CR>")
 
 -- lazygit.nvim
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>")

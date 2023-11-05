@@ -123,21 +123,6 @@ return {
     },
   },
   {
-    "nvim-tree/nvim-tree.lua",
-    version = "*",
-    lazy = false,
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      require("nvim-tree").setup({
-        view = {
-          width = 40,
-        },
-      })
-    end,
-  },
-  {
     "kdheepak/lazygit.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -208,5 +193,15 @@ return {
         width = 40,
       })
     end,
+  },
+  {
+    "stevearc/oil.nvim",
+    opts = {
+      keymaps = {
+        ["q"] = "actions.close",
+      },
+    },
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 }
