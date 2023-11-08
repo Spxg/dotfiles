@@ -122,14 +122,6 @@ return {
     end,
   },
   {
-    "nvim-pack/nvim-spectre",
-    cmd = "Spectre",
-    opts = { open_cmd = "noswapfile vnew" },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-  },
-  {
     "kdheepak/lazygit.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -191,14 +183,6 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
       require("ibl").setup()
-    end,
-  },
-  {
-    "simrat39/symbols-outline.nvim",
-    config = function()
-      require("symbols-outline").setup({
-        width = 40,
-      })
     end,
   },
   {
