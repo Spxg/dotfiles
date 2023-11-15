@@ -40,35 +40,6 @@ return {
     end,
   },
   {
-    "akinsho/bufferline.nvim",
-    version = "*",
-    dependencies = "nvim-tree/nvim-web-devicons",
-    config = function()
-      require("bufferline").setup()
-    end,
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = "nvim-tree/nvim-web-devicons",
-    config = function()
-      require("lualine").setup({
-        sections = {
-          lualine_a = { "mode" },
-          lualine_b = {
-            "branch",
-            "diff",
-            { "diagnostics", source = { "nvim" } },
-            { "filename", file_status = false, path = 1 },
-          },
-          lualine_c = {},
-          lualine_x = { "encoding", "fileformat", "filetype" },
-          lualine_y = { "progress" },
-          lualine_z = { "location" },
-        },
-      })
-    end,
-  },
-  {
     "ibhagwan/fzf-lua",
     -- optional for icon support
     dependencies = { "nvim-tree/nvim-web-devicons" },
