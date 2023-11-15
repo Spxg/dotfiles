@@ -77,11 +77,9 @@ return {
       require("fzf-lua").setup({ "skim" })
     end,
   },
-
   {
     "akinsho/toggleterm.nvim",
     version = "*",
-    lazy = false,
     config = function()
       -- terminal
       require("toggleterm").setup({

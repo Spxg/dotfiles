@@ -54,16 +54,6 @@ vim.api.nvim_create_user_command("Go", function(opts)
   go_to_file(opts.fargs[1])
 end, { nargs = 1 })
 
-local function json_file(path)
-  local file = io.open(path, "rb")
-  if not file then
-    return {}
-  end
-  local content = file:read("*a")
-  file:close()
-  return { vim.json.decode(content) } or {}
-end
-
 local servers = { "rust_analyzer", "lua_ls" }
 
 for _, lsp in ipairs(servers) do
