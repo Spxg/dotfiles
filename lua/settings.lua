@@ -60,7 +60,6 @@ for _, lsp in ipairs(servers) do
   local M = {}
 
   require("lspconfig")[lsp].setup({
-    -- on_attach = my_custom_on_attach,
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
     -- https://neovim.io/doc/user/lsp.html#lsp-api
     handlers = {
@@ -70,11 +69,11 @@ for _, lsp in ipairs(servers) do
         if result.quiescent and not M.ran_once then
           for _, bufnr in ipairs(vim.lsp.get_buffers_by_client_id(ctx.client_id)) do
             -- First, toggle disable because bufstate.applied
-            -- prevents vim.lsp.inlay_hint(bufnr, true) from refreshing.
+            -- prevents vim.lsp.inlay_hint.enable(bufnr, true) from refreshing.
             -- Therefore, we need to clear bufstate.applied.
-            vim.lsp.inlay_hint(bufnr)
+            vim.lsp.inlay_hint.enable(bufnr, false)
             -- toggle enable
-            vim.lsp.inlay_hint(bufnr)
+            vim.lsp.inlay_hint.enable(bufnr, true)
           end
           M.ran_once = true
         end
@@ -84,7 +83,7 @@ for _, lsp in ipairs(servers) do
     -- this usually occurs during the first attach.
     on_attach = function(client, bufnr)
       if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-        vim.lsp.inlay_hint(bufnr, true)
+        vim.lsp.inlay_hint.enable(bufnr, true)
       end
     end,
   })
