@@ -1,11 +1,5 @@
 return {
   {
-    "folke/neoconf.nvim",
-    config = function()
-      require("neoconf").setup({})
-    end,
-  },
-  {
     "neovim/nvim-lspconfig",
     config = function()
       -- Global mappings.
@@ -55,6 +49,7 @@ return {
     "hrsh7th/nvim-cmp",
     config = function()
       local cmp = require("cmp")
+      ---@diagnostic disable-next-line: missing-fields
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -107,6 +102,11 @@ return {
     end,
   },
 
-  "rust-lang/rust.vim",
   { "folke/neodev.nvim", opts = {} },
+  {
+    "folke/neoconf.nvim",
+    config = function()
+      require("neoconf").setup({})
+    end,
+  },
 }

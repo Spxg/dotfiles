@@ -63,12 +63,6 @@ return {
   },
   "tpope/vim-unimpaired",
   {
-    "j-hui/fidget.nvim",
-    tag = "legacy",
-    event = "LspAttach",
-    opts = {},
-  },
-  {
     "folke/flash.nvim",
     opts = {
       modes = {
@@ -99,20 +93,8 @@ return {
   {
     "RRethy/vim-illuminate",
     event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      providers = {
-        "lsp",
-        "treesitter",
-        "regex",
-      },
-      delay = 100,
-      large_file_cutoff = 2000,
-      large_file_overrides = {
-        providers = { "lsp" },
-      },
-    },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
+    config = function()
+      require("illuminate").configure()
     end,
   },
 
@@ -120,32 +102,21 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      local configs = require("nvim-treesitter.configs")
-
-      configs.setup({
-        ensure_installed = { "rust", "c", "lua", "vim", "vimdoc", "bash", "python" },
-        sync_install = false,
-        highlight = { enable = false },
+      ---@diagnostic disable-next-line: missing-fields
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "rust", "c" },
+        highlight = {
+          enable = true,
+          disable = { "rust", "c" },
+          additional_vim_regex_highlighting = false,
+        },
       })
     end,
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
     config = function()
-      require("treesitter-context").setup({
-        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-        line_numbers = true,
-        multiline_threshold = 20, -- Maximum number of lines to show for a single context
-        trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-        mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
-        -- Separator between context and content. Should be a single character string, like '-'.
-        -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-        separator = nil,
-        zindex = 20, -- The Z-index of the context window
-        on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-      })
+      require("treesitter-context").setup()
     end,
   },
   {
