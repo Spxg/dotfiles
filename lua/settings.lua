@@ -83,6 +83,7 @@ for _, lsp in ipairs(servers) do
     -- If the LSP is not ready, the inlay hint character is empty,
     -- this usually occurs during the first attach.
     on_attach = function(client, bufnr)
+      client.server_capabilities.semanticTokensProvider = nil
       if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
         vim.lsp.inlay_hint.enable(bufnr, true)
       end
