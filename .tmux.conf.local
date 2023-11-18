@@ -363,10 +363,6 @@ tmux_conf_copy_to_os_clipboard=false
 set -g status-keys vi
 set -g mode-keys vi
 
-# window navigation
-unbind Tab
-bind -n C-\\ last-window        # move to last active window
-
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2
 # unbind C-a
