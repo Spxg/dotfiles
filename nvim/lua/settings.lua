@@ -55,6 +55,8 @@ vim.api.nvim_create_user_command("Go", function(opts)
   go_to_file(opts.fargs[1])
 end, { nargs = 1 })
 
+vim.cmd([[colorscheme catppuccin]])
+
 local servers = { "rust_analyzer", "lua_ls" }
 
 for _, lsp in ipairs(servers) do
