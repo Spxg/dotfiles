@@ -100,33 +100,6 @@ return {
       require("illuminate").configure()
     end,
   },
-
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "rust", "c", "lua" },
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-      })
-    end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    config = function()
-      require("treesitter-context").setup()
-    end,
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require("ibl").setup()
-    end,
-  },
   {
     "stevearc/oil.nvim",
     opts = {
