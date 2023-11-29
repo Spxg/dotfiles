@@ -96,7 +96,11 @@ return {
     "RRethy/vim-illuminate",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("illuminate").configure()
+      require("illuminate").configure({
+        providers = {
+          "regex",
+        },
+      })
     end,
   },
   {
@@ -105,9 +109,29 @@ return {
       keymaps = {
         ["q"] = "actions.close",
       },
-      skip_confirm_for_simple_edits = true
+      skip_confirm_for_simple_edits = true,
     },
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      ---@diagnostic disable-next-line: missing-fields
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "rust", "c", "lua" },
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      })
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    config = function()
+      require("treesitter-context").setup()
+    end,
   },
 }

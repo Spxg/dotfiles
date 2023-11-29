@@ -63,3 +63,8 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set("t", "<c-n>", "<c-\\><c-n>")
 
 vim.keymap.set("n", "gp", "<cmd>Gop<CR>")
+
+-- treesitter-context
+vim.keymap.set("n", "[c", function()
+  require("treesitter-context").go_to_context()
+end, { silent = true })
