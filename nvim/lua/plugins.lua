@@ -120,7 +120,7 @@ return {
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "rust", "c", "lua" },
+        ensure_installed = { "rust", "c", "lua", "bash", "toml", "yaml", "json" },
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
