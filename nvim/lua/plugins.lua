@@ -139,4 +139,6 @@ return {
     event = "InsertEnter",
     opts = {}, -- this is equalent to setup({}) function
   },
+  { "kevinhwang91/nvim-bqf" },
+  { "mhinz/vim-grepper" },
 }
