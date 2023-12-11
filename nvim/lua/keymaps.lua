@@ -68,3 +68,12 @@ vim.keymap.set("n", "gp", "<cmd>Gop<CR>")
 vim.keymap.set("n", "[c", function()
   require("treesitter-context").go_to_context()
 end, { silent = true })
+
+-- quickfix
+vim.keymap.set("n", "<c-]>", function()
+  if vim.bo.filetype == "qf" then
+    vim.cmd.cclose()
+  else
+    vim.cmd.copen()
+  end
+end)
