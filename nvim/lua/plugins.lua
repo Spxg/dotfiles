@@ -130,5 +130,4 @@ return {
   },
   { "kevinhwang91/nvim-bqf" },
   { "mhinz/vim-grepper" },
-  { "itchyny/vim-cursorword" },
 }
