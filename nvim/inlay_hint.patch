@@ -1,0 +1,18 @@
+diff --git a/runtime/lua/vim/lsp/inlay_hint.lua b/runtime/lua/vim/lsp/inlay_hint.lua
+index 4816b873b..c1f03d958 100644
+--- a/runtime/lua/vim/lsp/inlay_hint.lua
++++ b/runtime/lua/vim/lsp/inlay_hint.lua
+@@ -319,7 +319,12 @@ api.nvim_set_decoration_provider(namespace, {
+     if bufstate.version ~= util.buf_versions[bufnr] then
+       return
+     end
+-    local hints_by_client = assert(bufstate.client_hint)
++
++    local hints_by_client = bufstate.client_hint
++
++    if not hints_by_client then
++      return
++    end
+ 
+     for lnum = topline, botline do
+       if bufstate.applied[lnum] ~= bufstate.version then
