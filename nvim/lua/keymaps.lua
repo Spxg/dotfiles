@@ -1,11 +1,13 @@
+-- fzf-lua
 vim.keymap.set("n", "<leader><leader>", "<cmd>FzfLua files<CR>")
-vim.keymap.set("n", "<leader>sg", "<cmd>FzfLua grep<CR>")
 vim.keymap.set("n", "<leader>sb", "<cmd>FzfLua buffers<CR>")
 vim.keymap.set("n", "<leader>sr", "<cmd>FzfLua resume<CR>")
+
+-- oil
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
-vim.keymap.set("n", "<leader>p", function()
-  vim.cmd.wincmd("w")
-end)
+
+-- vim-grepper
+vim.keymap.set("n", "<leader>sg", "<cmd>Grepper -tool rg<CR>")
 
 -- flash.nvim
 vim.keymap.set({ "n", "o", "x" }, "<leader>j", function()
@@ -18,15 +20,8 @@ vim.keymap.set("n", "<leader>/", function()
 end)
 vim.keymap.set("v", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>")
 
--- nvim-spectre
-vim.keymap.set("n", "<leader>fr", "<cmd>lua require('spectre').toggle()<CR>")
-
 -- lazygit.nvim
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>")
-
--- bufferline.nvim
-vim.keymap.set("n", "<leader>bp", "<cmd>BufferLineTogglePin<CR>")
-vim.keymap.set("n", "<leader>bP", "<cmd>BufferLineGroupClose ungrouped<CR>")
 
 -- enter normal mode
 vim.keymap.set("t", "<c-n>", "<c-\\><c-n>")
@@ -45,4 +40,8 @@ vim.keymap.set("n", "<c-]>", function()
   else
     vim.cmd.copen()
   end
+end)
+
+vim.keymap.set("n", "<leader>p", function()
+  vim.cmd.wincmd("w")
 end)

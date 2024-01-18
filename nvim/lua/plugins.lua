@@ -73,7 +73,6 @@ return {
         },
       },
     },
-    event = "VeryLazy",
   },
   {
     "numToStr/Comment.nvim",
@@ -125,7 +124,6 @@ return {
   },
   {
     "windwp/nvim-autopairs",
-    event = "InsertEnter",
     opts = {}, -- this is equalent to setup({}) function
   },
   { "kevinhwang91/nvim-bqf" },

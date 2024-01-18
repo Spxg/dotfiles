@@ -1,6 +1,12 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "folke/neoconf.nvim",
+      config = function()
+        require("neoconf").setup({})
+      end,
+    },
     config = function()
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -41,12 +47,16 @@ return {
       })
     end,
   },
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-  "hrsh7th/cmp-cmdline",
   {
     "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+    },
     config = function()
       local cmp = require("cmp")
       ---@diagnostic disable-next-line: missing-fields
@@ -70,8 +80,6 @@ return {
       })
     end,
   },
-  "L3MON4D3/LuaSnip",
-  "saadparwaiz1/cmp_luasnip",
   {
     "stevearc/conform.nvim",
     opts = {},
@@ -103,10 +111,4 @@ return {
   },
 
   { "folke/neodev.nvim", opts = {} },
-  {
-    "folke/neoconf.nvim",
-    config = function()
-      require("neoconf").setup({})
-    end,
-  },
 }
