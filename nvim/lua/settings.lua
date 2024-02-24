@@ -57,38 +57,33 @@ end, { nargs = 1 })
 
 vim.cmd([[colorscheme catppuccin]])
 
-local servers = { "rust_analyzer", "lua_ls", "tsserver" }
+local servers = { "lua_ls", "tsserver" }
 
 for _, lsp in ipairs(servers) do
-  local M = {}
-
   require("lspconfig")[lsp].setup({
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
-    -- https://neovim.io/doc/user/lsp.html#lsp-api
-    handlers = {
-      -- When the LSP is ready, enable inlay hint for existing bufnr again.
-      -- Learn from rust-tools.nvim
-      ["experimental/serverStatus"] = function(_, result, ctx, _)
-        if result.quiescent and not M.ran_once then
-          for _, bufnr in ipairs(vim.lsp.get_buffers_by_client_id(ctx.client_id)) do
-            -- First, toggle disable because bufstate.applied
-            -- prevents vim.lsp.inlay_hint.enable(bufnr, true) from refreshing.
-            -- Therefore, we need to clear bufstate.applied.
-            vim.lsp.inlay_hint.enable(bufnr, false)
-            -- toggle enable
-            vim.lsp.inlay_hint.enable(bufnr, true)
-          end
-          M.ran_once = true
-        end
-      end,
-    },
-    -- If the LSP is not ready, the inlay hint character is empty,
-    -- this usually occurs during the first attach.
-    on_attach = function(client, bufnr)
-      client.server_capabilities.semanticTokensProvider = {}
-      if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-        vim.lsp.inlay_hint.enable(bufnr, true)
-      end
-    end,
   })
+end
+
+vim.g.rustaceanvim = {
+  -- LSP configuration
+  server = {
+    on_attach = function(_, bufnr)
+      vim.lsp.inlay_hint.enable(bufnr, true)
+    end,
+  },
+}
+
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.before.attach.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  dapui.close()
 end
