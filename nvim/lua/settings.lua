@@ -57,7 +57,7 @@ end, { nargs = 1 })
 
 vim.cmd([[colorscheme catppuccin]])
 
-local servers = { "rust_analyzer", "lua_ls" }
+local servers = { "rust_analyzer", "lua_ls", "tsserver" }
 
 for _, lsp in ipairs(servers) do
   local M = {}
