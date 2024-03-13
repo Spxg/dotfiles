@@ -136,4 +136,11 @@ return {
       require("bufferline").setup({})
     end,
   },
+  {
+    "j-hui/fidget.nvim",
+    tag = "v1.0.0",
+    opts = {
+      -- options
+    },
+  },
 }
