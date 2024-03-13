@@ -133,7 +133,16 @@ return {
     version = "*",
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
-      require("bufferline").setup({})
+      require("bufferline").setup({
+        options = {
+          custom_filter = function(buf_number)
+            if vim.bo[buf_number].filetype ~= "qf" then
+              return true
+            end
+            return false
+          end,
+        },
+      })
     end,
   },
   {
