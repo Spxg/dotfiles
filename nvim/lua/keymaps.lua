@@ -68,3 +68,7 @@ end)
 vim.keymap.set("n", "<leader>dt", function()
   require("dap").terminate()
 end)
+
+-- bufferline
+vim.keymap.set("n", "<leader>bp", "<cmd>BufferLineTogglePin<CR>")
+vim.keymap.set("n", "<leader>bP", "<cmd>BufferLineGroupClose ungrouped<CR>")
