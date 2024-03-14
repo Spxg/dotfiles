@@ -1,12 +1,6 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "folke/neoconf.nvim",
-      config = function()
-        require("neoconf").setup({})
-      end,
-    },
     config = function()
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
