@@ -68,13 +68,14 @@ end
 vim.g.rustaceanvim = {
   -- LSP configuration
   server = {
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
     on_attach = function(_, bufnr)
       vim.lsp.inlay_hint.enable(bufnr, true)
     end,
     settings = function(project_root)
-      local ra = require('rustaceanvim.config.server')
+      local ra = require("rustaceanvim.config.server")
       return ra.load_rust_analyzer_settings(project_root, {
-        settings_file_pattern = '.vscode/settings.json'
+        settings_file_pattern = ".vscode/settings.json",
       })
     end,
   },
