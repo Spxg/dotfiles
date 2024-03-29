@@ -130,23 +130,6 @@ return {
   { "kevinhwang91/nvim-bqf" },
   { "mhinz/vim-grepper" },
   {
-    "akinsho/bufferline.nvim",
-    version = "*",
-    dependencies = "nvim-tree/nvim-web-devicons",
-    config = function()
-      require("bufferline").setup({
-        options = {
-          custom_filter = function(buf_number)
-            if vim.bo[buf_number].filetype ~= "qf" then
-              return true
-            end
-            return false
-          end,
-        },
-      })
-    end,
-  },
-  {
     "j-hui/fidget.nvim",
     tag = "v1.0.0",
     opts = {
