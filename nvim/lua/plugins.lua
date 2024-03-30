@@ -130,13 +130,6 @@ return {
   { "kevinhwang91/nvim-bqf" },
   { "mhinz/vim-grepper" },
   {
-    "j-hui/fidget.nvim",
-    tag = "v1.0.0",
-    opts = {
-      -- options
-    },
-  },
-  {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
@@ -147,4 +140,5 @@ return {
       })
     end,
   },
+
 }
