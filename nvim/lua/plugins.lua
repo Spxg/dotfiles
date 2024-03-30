@@ -158,4 +158,11 @@ return {
       leader_key = ";", -- Recommended to be a single key
     },
   },
+  {
+    "nvimdev/hlsearch.nvim",
+    event = "BufRead",
+    config = function()
+      require("hlsearch").setup()
+    end,
+  },
 }
