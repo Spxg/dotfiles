@@ -74,7 +74,7 @@ require("mason-lspconfig").setup_handlers({
       server = {
         capabilities = require("cmp_nvim_lsp").default_capabilities(),
         on_attach = function(_, bufnr)
-          vim.lsp.inlay_hint.enable(bufnr, true)
+          vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
         end,
         settings = function(project_root)
           local ra = require("rustaceanvim.config.server")
