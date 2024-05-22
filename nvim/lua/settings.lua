@@ -39,7 +39,7 @@ local function go_to_file(path)
   end
 end
 
-vim.keymap.set("n", "gf", function()
+vim.keymap.set("n", "gl", function()
   local f = vim.fn.expand("<cWORD>")
   if vim.bo.filetype == "toggleterm" then
     vim.cmd.ToggleTerm()
