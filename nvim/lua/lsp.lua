@@ -113,12 +113,6 @@ return {
   { "folke/neodev.nvim", opts = {} },
 
   {
-    "mrcjkb/rustaceanvim",
-    version = "^4", -- Recommended
-    ft = { "rust" },
-  },
-
-  {
     "rcarriga/nvim-dap-ui",
     dependencies = {
       "mfussenegger/nvim-dap",
