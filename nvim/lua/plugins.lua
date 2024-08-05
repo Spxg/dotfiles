@@ -170,12 +170,12 @@ return {
     version = "*",
     config = true,
   },
-  {
-    "j-hui/fidget.nvim",
-    opts = {
-      -- options
-    },
-  },
+  -- {
+  --   "j-hui/fidget.nvim",
+  --   opts = {
+  --     -- options
+  --   },
+  -- },
 
   { "folke/neoconf.nvim" },
 }
