@@ -60,7 +60,7 @@ vim.cmd([[colorscheme catppuccin]])
 -- It's important that you set up neoconf.nvim BEFORE nvim-lspconfig.
 require("neoconf").setup({})
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = require("blink.cmp").get_lsp_capabilities()
 capabilities.workspace = { didChangeWatchedFiles = { dynamicRegistration = true } } -- <- addded line
 
 require("mason-lspconfig").setup_handlers({
