@@ -170,15 +170,7 @@ return {
     version = "*",
     config = true,
   },
-  -- {
-  --   "j-hui/fidget.nvim",
-  --   opts = {
-  --     -- options
-  --   },
-  -- },
-
   { "folke/neoconf.nvim" },
-
   {
     "m4xshen/hardtime.nvim",
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },

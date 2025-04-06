@@ -4,7 +4,7 @@ return {
     config = function()
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-      vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+      vim.keymap.set("n", "<space>E", vim.diagnostic.open_float)
       vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
       vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
       vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
@@ -80,48 +80,7 @@ return {
       })
     end,
   },
-  {
-    "stevearc/conform.nvim",
-    opts = {},
-    config = function()
-      require("conform").setup({
-        -- Map of filetype to formatters
-        formatters_by_ft = {
-          lua = { "stylua" },
-          -- Conform will run multiple formatters sequentially
-          python = { "isort", "black" },
-          -- Use a sub-list to run only the first available formatter
-          javascript = { { "prettierd", "prettier" } },
-          rust = { "rustfmt" },
-          -- Use the "*" filetype to run formatters on all filetypes.
-          ["*"] = { "codespell" },
-          -- Use the "_" filetype to run formatters on filetypes that don't
-          -- have other formatters configured.
-          ["_"] = { "trim_whitespace" },
-        },
-        -- If this is set, Conform will run the formatter asynchronously after save.
-        -- It will pass the table to conform.format().
-        -- This can also be a function that returns the table.
-        format_after_save = {
-          lsp_fallback = true,
-        },
-        notify_on_error = false,
-      })
-    end,
-  },
-
   { "folke/neodev.nvim", opts = {} },
-
-  {
-    "rcarriga/nvim-dap-ui",
-    dependencies = {
-      "mfussenegger/nvim-dap",
-      "nvim-neotest/nvim-nio",
-    },
-    config = function()
-      require("dapui").setup()
-    end,
-  },
   {
     "williamboman/mason.nvim",
     config = function()
