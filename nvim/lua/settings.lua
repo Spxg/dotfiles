@@ -57,6 +57,14 @@ end, { nargs = 1 })
 
 vim.cmd([[colorscheme catppuccin]])
 
+vim.api.nvim_create_autocmd('TermEnter', {
+  pattern = 'term://*toggleterm#*',
+  callback = function()
+    vim.opt_local.number = true
+    vim.opt_local.relativenumber = true
+  end
+})
+
 -- It's important that you set up neoconf.nvim BEFORE nvim-lspconfig.
 require("neoconf").setup({})
 
@@ -84,3 +92,5 @@ require("mason-lspconfig").setup_handlers({
     })
   end,
 })
+
+

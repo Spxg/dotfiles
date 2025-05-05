@@ -55,7 +55,6 @@ return {
       require("toggleterm").setup({
         open_mapping = [[<c-\>]],
         close_on_exit = true,
-        hide_numbers = false,
         direction = "tab",
       })
     end,
