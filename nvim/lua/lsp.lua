@@ -47,9 +47,8 @@ return {
     version = '1.*',
     opts = {
       keymap = {
-        preset = 'enter',
-        ['<Tab>'] = { 'select_next', 'fallback' },
-        ['<S-Tab>'] = { 'select_prev', 'fallback' },
+        preset = 'super-tab',
+        ['<CR>'] = { 'accept', 'fallback' },
       },
       appearance = {
         nerd_font_variant = 'mono'
