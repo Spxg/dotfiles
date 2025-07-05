@@ -65,32 +65,12 @@ vim.api.nvim_create_autocmd('TermEnter', {
   end
 })
 
--- It's important that you set up neoconf.nvim BEFORE nvim-lspconfig.
-require("neoconf").setup({})
-
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-capabilities.workspace = { didChangeWatchedFiles = { dynamicRegistration = true } } -- <- addded line
-
-require("mason-lspconfig").setup_handlers({
-  -- The first entry (without a key) will be the default handler
-  -- and will be called for each installed server that doesn't have
-  -- a dedicated handler.
-  function(server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup({
-      capabilities = capabilities,
-    })
-  end,
-  -- Next, you can provide a dedicated handler for specific servers.
-  -- For example, a handler override for the `rust_analyzer`:
-  ["rust_analyzer"] = function()
-    -- LSP configuration
-    require("lspconfig")["rust_analyzer"].setup({
-      capabilities = capabilities,
-      on_attach = function(_, bufnr)
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-      end,
-    })
+vim.lsp.config("rust_analyzer", {
+  on_attach = function(_, bufnr)
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end,
 })
 
-
+require("mason-lspconfig").setup({
+  automatic_enable = true,
+})
