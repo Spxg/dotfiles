@@ -47,8 +47,25 @@ return {
     version = '1.*',
     opts = {
       keymap = {
-        preset = 'super-tab',
-        ['<CR>'] = { 'accept', 'fallback' },
+        preset = 'enter',
+        ['<Tab>'] = {
+          function(cmp)
+            if not cmp.snippet_active() then
+              return cmp.select_next()
+            end
+          end,
+          'snippet_forward',
+          'fallback'
+        },
+        ['<S-Tab>'] = {
+          function(cmp)
+            if not cmp.snippet_active() then
+              return cmp.select_prev()
+            end
+          end,
+          'snippet_backward',
+          'fallback'
+        },
       },
       appearance = {
         nerd_font_variant = 'mono'
