@@ -21,6 +21,11 @@ vim.opt.undofile = true
 
 vim.opt.grepprg = "rg -F --vimgrep --no-heading --smart-case"
 
+vim.g.grepper = {
+  stop = 5000,
+  prompt_mapping_tool = '<leader>tab'
+}
+
 local function go_to_file(path)
   local s = vim.split(path, ":")
   for x, y in pairs(s) do
@@ -64,6 +69,8 @@ vim.api.nvim_create_autocmd('TermEnter', {
     vim.opt_local.relativenumber = true
   end
 })
+
+require("neoconf").setup({})
 
 vim.lsp.config("rust_analyzer", {
   on_attach = function(_, bufnr)
