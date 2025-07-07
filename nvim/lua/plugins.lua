@@ -176,4 +176,8 @@ return {
       max_count = 20,
     },
   },
+  {
+    "nvim-pack/nvim-spectre",
+    dependencies = { "nvim-lua/plenary.nvim" }
+  }
 }
