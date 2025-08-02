@@ -24,7 +24,7 @@ vim.keymap.set("v", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.li
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>")
 
 -- enter normal mode
-vim.keymap.set("t", "<c-n>", "<c-\\><c-n>")
+vim.keymap.set("t", "<c-k>", "<c-\\><c-n>")
 
 vim.keymap.set("n", "gp", "<cmd>Gop<CR>")
 
