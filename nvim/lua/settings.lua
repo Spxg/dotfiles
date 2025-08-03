@@ -73,11 +73,3 @@ vim.api.nvim_create_autocmd('TermEnter', {
     vim.opt_local.relativenumber = true
   end
 })
-
-require("mason-lspconfig").setup({
-  automatic_enable = {
-    exclude = {
-      "rust_analyzer",
-    }
-  }
-})

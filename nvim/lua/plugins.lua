@@ -12,6 +12,7 @@ return {
     priority = 1000,
     config = function()
       require("catppuccin").setup({
+        ---@diagnostic disable-next-line: missing-fields
         color_overrides = {
           mocha = {
             rosewater = "#ffc9c9",

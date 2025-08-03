@@ -88,6 +88,11 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
+        automatic_enable = {
+          exclude = {
+            "rust_analyzer",
+          }
+        },
         ensure_installed = { "lua_ls", "rust_analyzer" },
       })
     end,
