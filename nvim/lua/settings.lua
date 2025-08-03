@@ -74,14 +74,10 @@ vim.api.nvim_create_autocmd('TermEnter', {
   end
 })
 
-require("neoconf").setup({})
-
-vim.lsp.config("rust_analyzer", {
-  on_attach = function(_, bufnr)
-    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-  end,
-})
-
 require("mason-lspconfig").setup({
-  automatic_enable = true,
+  automatic_enable = {
+    exclude = {
+      "rust_analyzer",
+    }
+  }
 })

@@ -43,6 +43,8 @@ return {
           end, opts)
         end,
       })
+
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end,
   },
   {
@@ -65,7 +67,6 @@ return {
     },
     opts_extend = { "sources.default" }
   },
-  { "folke/neoconf.nvim" },
   {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
@@ -94,5 +95,10 @@ return {
   {
     "j-hui/fidget.nvim",
     opts = {},
+  },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^6', -- Recommended
+    lazy = false,   -- This plugin is already lazy
   }
 }
