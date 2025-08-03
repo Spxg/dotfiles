@@ -5,8 +5,12 @@ return {
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
       vim.keymap.set("n", "<space>E", vim.diagnostic.open_float)
-      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-      vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+      vim.keymap.set("n", "[d", function()
+        vim.diagnostic.jump({ count = -1, float = true })
+      end)
+      vim.keymap.set("n", "]d", function()
+        vim.diagnostic.jump({ count = 1, float = true })
+      end)
       vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
 
       -- Use LspAttach autocommand to only map the following keys
@@ -48,24 +52,6 @@ return {
     opts = {
       keymap = {
         preset = 'enter',
-        ['<Tab>'] = {
-          function(cmp)
-            if cmp.is_menu_visible() then
-              return require("blink.cmp").select_next()
-            elseif cmp.snippet_active() then
-              return cmp.snippet_forward()
-            end
-          end, 'fallback'
-        },
-        ['<S-Tab>'] = {
-          function(cmp)
-            if cmp.is_menu_visible() then
-              return require("blink.cmp").select_prev()
-            elseif cmp.snippet_active() then
-              return cmp.snippet_backward()
-            end
-          end, 'fallback'
-        },
       },
       appearance = {
         nerd_font_variant = 'mono'
@@ -104,4 +90,8 @@ return {
       })
     end,
   },
+  {
+    "j-hui/fidget.nvim",
+    opts = {},
+  }
 }
