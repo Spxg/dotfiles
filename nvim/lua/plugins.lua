@@ -1,4 +1,11 @@
 return {
+  -- PaperColor
+  'NLKNguyen/papercolor-theme',
+  -- PaperColorSlim
+  'pappasam/papercolor-theme-slim',
+  -- melange
+  "savq/melange-nvim",
+  -- catppuccin
   {
     "catppuccin/nvim",
     name = "catppuccin",

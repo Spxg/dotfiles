@@ -60,7 +60,11 @@ vim.api.nvim_create_user_command("Go", function(opts)
   go_to_file(opts.fargs[1])
 end, { nargs = 1 })
 
-vim.cmd([[colorscheme catppuccin]])
+vim.cmd([[
+colorscheme PaperColorSlim
+set guicursor=n-v-sm:block-Cursor,i-ci-c-ve:ver25-Cursor,r-cr-o:hor20-Cursor
+set winborder=rounded
+]])
 
 vim.api.nvim_create_autocmd('TermEnter', {
   pattern = 'term://*toggleterm#*',
