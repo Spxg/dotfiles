@@ -61,9 +61,10 @@ vim.api.nvim_create_user_command("Go", function(opts)
 end, { nargs = 1 })
 
 vim.cmd([[
-colorscheme PaperColorSlim
-set guicursor=n-v-sm:block-Cursor,i-ci-c-ve:ver25-Cursor,r-cr-o:hor20-Cursor
-set winborder=rounded
+colorscheme catppuccin
+" colorscheme PaperColorSlim
+" set guicursor=n-v-sm:block-Cursor,i-ci-c-ve:ver25-Cursor,r-cr-o:hor20-Cursor
+" set winborder=rounded
 ]])
 
 vim.api.nvim_create_autocmd('TermEnter', {

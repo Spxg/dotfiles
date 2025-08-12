@@ -1,6 +1,6 @@
 return {
-  -- PaperColor
-  'NLKNguyen/papercolor-theme',
+  -- midnight
+  'dasupradyumna/midnight.nvim',
   -- PaperColorSlim
   'pappasam/papercolor-theme-slim',
   -- melange
@@ -11,8 +11,8 @@ return {
     name = "catppuccin",
     priority = 1000,
     config = function()
+      ---@diagnostic disable: missing-fields
       require("catppuccin").setup({
-        ---@diagnostic disable-next-line: missing-fields
         color_overrides = {
           mocha = {
             rosewater = "#ffc9c9",
