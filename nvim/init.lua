@@ -17,7 +17,6 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { import = "plugins" },
-    { import = "lsp" },
   },
   change_detection = {
     notify = false,
