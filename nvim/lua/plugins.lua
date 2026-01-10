@@ -55,18 +55,6 @@ return {
       require("fzf-lua").setup()
     end,
   },
-  {
-    "akinsho/toggleterm.nvim",
-    version = "*",
-    config = function()
-      -- terminal
-      require("toggleterm").setup({
-        open_mapping = [[<c-\>]],
-        close_on_exit = true,
-        direction = "tab",
-      })
-    end,
-  },
   "tpope/vim-unimpaired",
   {
     "folke/flash.nvim",
