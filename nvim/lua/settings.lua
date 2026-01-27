@@ -7,7 +7,7 @@ vim.opt.smartindent = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftround = true
-vim.opt.shiftwidth = 2
+vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.encoding = "UTF-8"
 vim.opt.syntax = "on"
@@ -15,6 +15,7 @@ vim.opt.showmatch = true
 vim.opt.hlsearch = true
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
+vim.opt.list = false
 
 vim.opt.undodir = vim.env.HOME .. "/.undodir"
 vim.opt.undofile = true
