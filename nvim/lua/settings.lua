@@ -45,121 +45,13 @@ local function go_to_file(path)
   end
 end
 
-local last_tabpage = nil
-local term_tabs = {}
-local last_term_tabpage = nil
-
-local function set_term_tab_highlight()
-  vim.api.nvim_set_hl(0, "TermTabNormal", { link = "TabLineFill" })
-end
-
-local function open_term_tab()
-  last_tabpage = vim.api.nvim_get_current_tabpage()
-  vim.cmd.tabnew()
-  vim.cmd.terminal()
-  local term_buf = vim.api.nvim_get_current_buf()
-  vim.bo[term_buf].bufhidden = "hide"
-  vim.opt_local.number = true
-  vim.opt_local.relativenumber = true
-  local term_win = vim.api.nvim_get_current_win()
-  vim.wo[term_win].winhl = "Normal:TermTabNormal,NormalNC:TermTabNormal"
-  local tabpage = vim.api.nvim_get_current_tabpage()
-  term_tabs[tabpage] = term_buf
-  last_term_tabpage = tabpage
-  vim.cmd("startinsert")
-end
-
-local function goto_last_term_tab()
-  if last_term_tabpage and vim.api.nvim_tabpage_is_valid(last_term_tabpage) then
-    last_tabpage = vim.api.nvim_get_current_tabpage()
-    vim.api.nvim_set_current_tabpage(last_term_tabpage)
-    vim.cmd("startinsert")
-    return true
-  end
-  return false
-end
-
-local function toggle_term_tab()
-  local current_tabpage = vim.api.nvim_get_current_tabpage()
-  if term_tabs[current_tabpage] then
-    if last_tabpage and vim.api.nvim_tabpage_is_valid(last_tabpage) then
-      vim.api.nvim_set_current_tabpage(last_tabpage)
-    end
-    return
-  end
-
-  if goto_last_term_tab() then
-    return
-  end
-
-  open_term_tab()
-end
-
-local function update_tabline_visibility()
-  local current_tabpage = vim.api.nvim_get_current_tabpage()
-  local is_term_tab = term_tabs[current_tabpage] ~= nil
-  if is_term_tab then
-    vim.o.showtabline = 2
-    last_term_tabpage = current_tabpage
-  else
-    vim.o.showtabline = 0
-  end
-end
-
-local function close_term_tabs()
-  local current_tabpage = vim.api.nvim_get_current_tabpage()
-  for tabpage, _ in pairs(term_tabs) do
-    if vim.api.nvim_tabpage_is_valid(tabpage) then
-      vim.api.nvim_set_current_tabpage(tabpage)
-      vim.cmd("tabclose")
-    end
-  end
-  if vim.api.nvim_tabpage_is_valid(current_tabpage) then
-    vim.api.nvim_set_current_tabpage(current_tabpage)
-  end
-  term_tabs = {}
-  last_term_tabpage = nil
-end
-
-vim.api.nvim_create_autocmd("TabClosed", {
-  callback = function()
-    for tabpage, _ in pairs(term_tabs) do
-      if not vim.api.nvim_tabpage_is_valid(tabpage) then
-        term_tabs[tabpage] = nil
-      end
-    end
-    if last_term_tabpage and not vim.api.nvim_tabpage_is_valid(last_term_tabpage) then
-      last_term_tabpage = nil
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "TabEnter", "BufEnter", "WinEnter", "TermEnter" }, {
-  callback = update_tabline_visibility,
-})
-
-vim.api.nvim_create_autocmd("QuitPre", {
-  callback = close_term_tabs,
-})
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = set_term_tab_highlight,
-})
-
 vim.keymap.set("n", "gl", function()
   local f = vim.fn.expand("<cWORD>")
-  if vim.bo.buftype == "terminal" then
-    toggle_term_tab()
+  if vim.bo.filetype == "toggleterm" then
+    vim.cmd.ToggleTerm()
   end
   go_to_file(f)
 end)
-
-vim.keymap.set("n", "<C-\\>", toggle_term_tab)
-vim.keymap.set("t", "<C-\\>", function()
-  vim.cmd("stopinsert")
-  toggle_term_tab()
-end)
-vim.keymap.set("n", "<leader>tt", open_term_tab)
 
 vim.api.nvim_create_user_command("Gop", function()
   go_to_file(vim.fn.getreg("*"))
@@ -176,4 +68,10 @@ colorscheme catppuccin
 " set winborder=rounded
 ]])
 
-set_term_tab_highlight()
+vim.api.nvim_create_autocmd('TermEnter', {
+  pattern = 'term://*toggleterm#*',
+  callback = function()
+    vim.opt_local.number = true
+    vim.opt_local.relativenumber = true
+  end
+})
