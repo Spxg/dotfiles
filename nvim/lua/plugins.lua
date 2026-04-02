@@ -285,5 +285,31 @@ return {
         ensure_installed = { "lua_ls", "rust_analyzer" },
       })
     end,
+  },
+  {
+    "folke/sidekick.nvim",
+    opts = {
+      nes = { enabled = false },
+    },
+    keys = {
+      {
+        "<c-h>",
+        function() require("sidekick.cli").focus() end,
+        desc = "Sidekick Focus",
+        mode = { "n", "t", "i", "x" },
+      },
+      {
+        "<leader>at",
+        function() require("sidekick.cli").send({ msg = "{this}" }) end,
+        mode = { "x", "n" },
+        desc = "Send This",
+      },
+      {
+        "<leader>av",
+        function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+        mode = { "x" },
+        desc = "Send Visual Selection",
+      },
+    },
   }
 }
