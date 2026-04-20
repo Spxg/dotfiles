@@ -311,5 +311,9 @@ return {
         desc = "Send Visual Selection",
       },
     },
+  },
+  {
+    "esmuellert/codediff.nvim",
+    cmd = "CodeDiff",
   }
 }
