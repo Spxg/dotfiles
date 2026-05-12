@@ -14,24 +14,17 @@ vim.keymap.set({ "n", "o", "x" }, "<leader>j", function()
   require("flash").jump()
 end)
 
--- Comment.nvim
-vim.keymap.set("n", "<leader>/", function()
-  require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
-end)
-vim.keymap.set("v", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>")
-
 -- lazygit.nvim
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>")
 
 -- enter normal mode
-vim.keymap.set("t", "<c-k>", "<c-\\><c-n>")
+vim.keymap.set("t", "<c-q>", "<c-\\><c-n>")
 
 vim.keymap.set("n", "gp", "<cmd>Gop<CR>")
 
--- treesitter-context
-vim.keymap.set("n", "[c", function()
-  require("treesitter-context").go_to_context()
-end, { silent = true })
+-- mini.comment
+vim.keymap.set("n", "<leader>/", "gcc", { remap = true })
+vim.keymap.set("v", "<leader>/", "gc", { remap = true })
 
 -- quickfix
 vim.keymap.set("n", "<c-]>", function()
