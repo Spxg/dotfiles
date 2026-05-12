@@ -39,4 +39,4 @@ vim.keymap.set("n", "<leader>p", function()
   vim.cmd.wincmd("w")
 end)
 
-vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>')
+vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>')

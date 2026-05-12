@@ -24,7 +24,7 @@ vim.opt.grepprg = "rg -F --vimgrep --no-heading --smart-case"
 
 vim.g.grepper = {
   stop = 5000,
-  prompt_mapping_tool = '<leader>tab'
+  prompt_mapping_tool = "<leader>tab",
 }
 
 local function go_to_file(path)
@@ -63,15 +63,12 @@ end, { nargs = 1 })
 
 vim.cmd([[
 colorscheme catppuccin
-" colorscheme PaperColorSlim
-" set guicursor=n-v-sm:block-Cursor,i-ci-c-ve:ver25-Cursor,r-cr-o:hor20-Cursor
-" set winborder=rounded
 ]])
 
-vim.api.nvim_create_autocmd('TermEnter', {
-  pattern = 'term://*toggleterm#*',
+vim.api.nvim_create_autocmd("TermEnter", {
+  pattern = "term://*toggleterm#*",
   callback = function()
     vim.opt_local.number = true
     vim.opt_local.relativenumber = true
-  end
+  end,
 })

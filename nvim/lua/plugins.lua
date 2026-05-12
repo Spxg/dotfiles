@@ -1,8 +1,4 @@
 return {
-  -- midnight
-  'dasupradyumna/midnight.nvim',
-  -- PaperColorSlim
-  'pappasam/papercolor-theme-slim',
   -- melange
   "savq/melange-nvim",
   -- catppuccin
@@ -81,7 +77,7 @@ return {
       },
     },
   },
-  { 'nvim-mini/mini.comment', version = "*" },
+  { "nvim-mini/mini.comment", version = "*" },
   {
     "rhysd/git-messenger.vim",
     config = function()
@@ -163,7 +159,7 @@ return {
   },
   {
     "nvim-pack/nvim-spectre",
-    dependencies = { "nvim-lua/plenary.nvim" }
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
   {
     "neovim/nvim-lspconfig",
@@ -214,24 +210,24 @@ return {
     end,
   },
   {
-    'saghen/blink.cmp',
-    dependencies = { 'rafamadriz/friendly-snippets', { 'L3MON4D3/LuaSnip', version = 'v2.*' } },
-    version = '1.*',
+    "saghen/blink.cmp",
+    dependencies = { "rafamadriz/friendly-snippets", { "L3MON4D3/LuaSnip", version = "v2.*" } },
+    version = "1.*",
     opts = {
       keymap = {
-        preset = 'enter',
+        preset = "enter",
       },
       appearance = {
-        nerd_font_variant = 'mono'
+        nerd_font_variant = "mono",
       },
       completion = { documentation = { auto_show = false } },
-      snippets = { preset = 'luasnip' },
+      snippets = { preset = "luasnip" },
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        default = { "lsp", "path", "snippets", "buffer" },
       },
-      fuzzy = { implementation = "prefer_rust_with_warning" }
+      fuzzy = { implementation = "prefer_rust_with_warning" },
     },
-    opts_extend = { "sources.default" }
+    opts_extend = { "sources.default" },
   },
   {
     "folke/lazydev.nvim",
@@ -257,7 +253,7 @@ return {
         automatic_enable = {
           exclude = {
             "rust_analyzer",
-          }
+          },
         },
         ensure_installed = { "lua_ls", "rust_analyzer" },
       })
@@ -271,19 +267,25 @@ return {
     keys = {
       {
         "<c-h>",
-        function() require("sidekick.cli").focus() end,
+        function()
+          require("sidekick.cli").focus()
+        end,
         desc = "Sidekick Focus",
         mode = { "n", "t", "i", "x" },
       },
       {
         "<leader>at",
-        function() require("sidekick.cli").send({ msg = "{this}" }) end,
+        function()
+          require("sidekick.cli").send({ msg = "{this}" })
+        end,
         mode = { "x", "n" },
         desc = "Send This",
       },
       {
         "<leader>av",
-        function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+        function()
+          require("sidekick.cli").send({ msg = "{selection}" })
+        end,
         mode = { "x" },
         desc = "Send Visual Selection",
       },
@@ -292,5 +294,5 @@ return {
   {
     "esmuellert/codediff.nvim",
     cmd = "CodeDiff",
-  }
+  },
 }
