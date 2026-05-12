@@ -294,5 +294,11 @@ return {
   {
     "esmuellert/codediff.nvim",
     cmd = "CodeDiff",
+    opts = {
+      -- History panel configuration (for :CodeDiff history)
+      history = {
+        height = 10, -- Height when position is "bottom" (lines)
+      },
+    },
   },
 }
