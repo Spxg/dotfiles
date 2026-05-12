@@ -35,7 +35,7 @@ vim.keymap.set("n", "<c-]>", function()
   end
 end)
 
-vim.keymap.set("n", "<leader>p", function()
+vim.keymap.set("n", "<c-h>", function()
   vim.cmd.wincmd("w")
 end)
 

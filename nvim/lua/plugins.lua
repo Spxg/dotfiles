@@ -266,12 +266,12 @@ return {
     },
     keys = {
       {
-        "<c-h>",
+        "<leader>aa",
         function()
-          require("sidekick.cli").focus()
+          require("sidekick.cli").show({ focus = true })
         end,
-        desc = "Sidekick Focus",
-        mode = { "n", "t", "i", "x" },
+        mode = { "x", "n" },
+        desc = "Open Sidekick",
       },
       {
         "<leader>at",
