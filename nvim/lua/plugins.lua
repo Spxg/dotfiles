@@ -1,6 +1,4 @@
 return {
-  -- melange
-  "savq/melange-nvim",
   -- catppuccin
   {
     "catppuccin/nvim",
