@@ -43,3 +43,4 @@ vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>')
 
 -- codediff
 vim.keymap.set("n", "<leader>gh", "<cmd>CodeDiff history<CR>")
+vim.keymap.set("n", "<leader>gs", "<cmd>CodeDiff<CR>")
