@@ -72,3 +72,9 @@ vim.api.nvim_create_autocmd("TermEnter", {
     vim.opt_local.relativenumber = true
   end,
 })
+
+if vim.env.SSHR == "1" then
+  vim.ui.open = function(path)
+    vim.fn.jobstart({ "sshr", "gx", tostring(path) }, { detach = true })
+  end
+end
