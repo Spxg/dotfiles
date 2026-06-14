@@ -45,7 +45,7 @@ end
 local function expand_vscode_vars(value, workspace_folder)
   if type(value) == "string" then
     value = value:gsub("%${env:([^}]+)}", function(name)
-      return vim.env[name] or "${env:" .. name .. "}"
+      return (vim.env[name] or "${env:") .. name .. "}"
     end)
 
     return value:gsub("%${workspaceFolder}", workspace_folder)
