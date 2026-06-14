@@ -14,6 +14,51 @@ vim.keymap.set({ "n", "o", "x" }, "<leader>j", function()
   require("flash").jump()
 end)
 
+-- jumplist
+local function path_in_cwd(path)
+  if path == "" then
+    return false
+  end
+
+  path = vim.fs.normalize(vim.fn.fnamemodify(path, ":p"))
+  local cwd = vim.fs.normalize(vim.fn.fnamemodify(vim.fn.getcwd(0), ":p"))
+
+  if cwd:sub(-1) ~= "/" then
+    cwd = cwd .. "/"
+  end
+
+  return path:sub(1, #cwd) == cwd
+end
+
+local function jump_target_path(offset)
+  local jumplist = vim.fn.getjumplist()
+  local target = jumplist[1][jumplist[2] + offset]
+  if not target then
+    return nil
+  end
+
+  if target.bufnr and target.bufnr > 0 then
+    return vim.fn.bufname(target.bufnr)
+  end
+
+  return target.filename
+end
+
+local function jump_inside_cwd(key, offset)
+  local path = jump_target_path(offset)
+  if path and path_in_cwd(path) then
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, false, true), "nx", false)
+  end
+end
+
+vim.keymap.set("n", "<C-o>", function()
+  jump_inside_cwd("<C-o>", 0)
+end, { desc = "Jump backward inside cwd" })
+
+vim.keymap.set("n", "<C-i>", function()
+  jump_inside_cwd("<C-i>", 2)
+end, { desc = "Jump forward inside cwd" })
+
 -- lazygit.nvim
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>")
 
