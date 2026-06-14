@@ -261,6 +261,16 @@ return {
     "folke/sidekick.nvim",
     opts = {
       nes = { enabled = false },
+      cli = {
+        win = {
+          keys = {
+            stopinsert = { "<c-k>", "stopinsert", mode = "t", desc = "enter normal mode" },
+            hide_ctrl_q = false,
+            hide_ctrl_k = { "<c-k>", "hide", mode = "n", desc = "hide the terminal window" },
+            nav_up = false,
+          },
+        },
+      },
     },
     keys = {
       {
