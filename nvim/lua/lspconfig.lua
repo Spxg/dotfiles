@@ -42,6 +42,26 @@ local function silent_decode(json_content)
   return json_tbl
 end
 
+local function expand_vscode_vars(value, workspace_folder)
+  if type(value) == "string" then
+    value = value:gsub("%${env:([^}]+)}", function(name)
+      return vim.env[name] or "${env:" .. name .. "}"
+    end)
+
+    return value:gsub("%${workspaceFolder}", workspace_folder)
+  end
+
+  if type(value) ~= "table" then
+    return value
+  end
+
+  for key, item in pairs(value) do
+    value[key] = expand_vscode_vars(item, workspace_folder)
+  end
+
+  return value
+end
+
 local function find_vscode_settings(bufname)
   local settings = {}
   local found_dirs = vim.fs.find({ ".vscode" }, { upward = true, path = vim.fs.dirname(bufname), type = "directory" })
@@ -49,6 +69,7 @@ local function find_vscode_settings(bufname)
     return settings
   end
   local vscode_dir = found_dirs[1]
+  local workspace_folder = vim.fs.normalize(vim.fn.fnamemodify(vim.fs.dirname(vscode_dir), ":p"))
   local results = vim.fn.glob(vim.fs.joinpath(vscode_dir, "settings.json"), true, true)
   if vim.tbl_isempty(results) then
     return settings
@@ -60,7 +81,7 @@ local function find_vscode_settings(bufname)
     content = f:read("*a")
     f:close()
   end
-  return content and silent_decode(content) or {}
+  return content and expand_vscode_vars(silent_decode(content), workspace_folder) or {}
 end
 
 local default_settings = {
