@@ -27,8 +27,19 @@ vim.g.grepper = {
   prompt_mapping_tool = "<leader>tab",
 }
 
+local function target_file_exists(path)
+  local file = vim.split(path, ":")[1]
+  return file and vim.uv.fs_stat(file) ~= nil
+end
+
 local function go_to_file(path)
   local s = vim.split(path, ":")
+  local file = s[1]
+
+  if not file or not vim.uv.fs_stat(file) then
+    return
+  end
+
   for x, y in pairs(s) do
     -- file path
     if x == 1 then
@@ -47,9 +58,19 @@ end
 
 vim.keymap.set("n", "gl", function()
   local f = vim.fn.expand("<cWORD>")
+
+  if not target_file_exists(f) then
+    return
+  end
+
   if vim.bo.filetype == "toggleterm" then
     vim.cmd.ToggleTerm()
+    vim.schedule(function()
+      go_to_file(f)
+    end)
+    return
   end
+
   go_to_file(f)
 end)
 
