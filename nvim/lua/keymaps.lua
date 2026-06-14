@@ -59,6 +59,9 @@ vim.keymap.set("n", "<C-i>", function()
   jump_inside_cwd("<C-i>", 2)
 end, { desc = "Jump forward inside cwd" })
 
+-- disable macro recording
+vim.keymap.set("n", "q", "<Nop>", { desc = "Disable macro recording" })
+
 -- lazygit.nvim
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>")
 
