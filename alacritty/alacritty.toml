@@ -5,7 +5,7 @@ mods = "Command"
 # mods = "Alt"
 
 [font]
-size = 13.5
+size = 14
 
 [font.bold]
 family = "Hack Nerd Font"
