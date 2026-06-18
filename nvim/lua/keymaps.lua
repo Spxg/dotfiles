@@ -15,19 +15,21 @@ vim.keymap.set({ "n", "o", "x" }, "<leader>j", function()
 end)
 
 -- jumplist
-local function path_in_cwd(path)
-  if path == "" then
-    return false
+local visited_paths = {}
+
+local function normalize_path(path)
+  if not path or path == "" then
+    return nil
   end
 
-  path = vim.fs.normalize(vim.fn.fnamemodify(path, ":p"))
-  local cwd = vim.fs.normalize(vim.fn.fnamemodify(vim.fn.getcwd(0), ":p"))
+  return vim.fs.normalize(vim.fn.fnamemodify(path, ":p"))
+end
 
-  if cwd:sub(-1) ~= "/" then
-    cwd = cwd .. "/"
+local function mark_current_path()
+  local path = normalize_path(vim.api.nvim_buf_get_name(0))
+  if path then
+    visited_paths[path] = true
   end
-
-  return path:sub(1, #cwd) == cwd
 end
 
 local function jump_target_path(offset)
@@ -44,24 +46,30 @@ local function jump_target_path(offset)
   return target.filename
 end
 
-local function jump_inside_cwd(key, offset)
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = mark_current_path,
+})
+
+mark_current_path()
+
+local function jump_to_visited_file(key, offset)
   local path = jump_target_path(offset)
   if not path then
     return
   end
 
-  local current_path = vim.api.nvim_buf_get_name(0)
-  if not path_in_cwd(current_path) or path_in_cwd(path) then
+  local target_path = normalize_path(path)
+  if target_path and visited_paths[target_path] then
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, false, true), "nx", false)
   end
 end
 
 vim.keymap.set("n", "<C-o>", function()
-  jump_inside_cwd("<C-o>", 0)
+  jump_to_visited_file("<C-o>", 0)
 end, { desc = "Jump backward inside cwd" })
 
 vim.keymap.set("n", "<C-i>", function()
-  jump_inside_cwd("<C-i>", 2)
+  jump_to_visited_file("<C-i>", 2)
 end, { desc = "Jump forward inside cwd" })
 
 -- disable macro recording
