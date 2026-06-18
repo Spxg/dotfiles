@@ -94,6 +94,14 @@ vim.api.nvim_create_autocmd("TermEnter", {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = vim.fs.normalize(vim.env.HOME .. "/.rustup/toolchains/*/lib/rustlib/src/rust/library/*"),
+  callback = function()
+    vim.opt_local.readonly = true
+    vim.opt_local.modifiable = false
+  end,
+})
+
 if vim.env.SSHR == "1" then
   vim.ui.open = function(path)
     vim.fn.jobstart({ "sshr", "gx", tostring(path) }, { detach = true })
