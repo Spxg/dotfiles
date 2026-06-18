@@ -46,7 +46,12 @@ end
 
 local function jump_inside_cwd(key, offset)
   local path = jump_target_path(offset)
-  if path and path_in_cwd(path) then
+  if not path then
+    return
+  end
+
+  local current_path = vim.api.nvim_buf_get_name(0)
+  if not path_in_cwd(current_path) or path_in_cwd(path) then
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, false, true), "nx", false)
   end
 end
