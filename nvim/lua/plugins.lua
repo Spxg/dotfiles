@@ -262,6 +262,11 @@ return {
     opts = {
       nes = { enabled = false },
       cli = {
+        tools = {
+          codex = {
+            cmd = { "codex", "--yolo" },
+          },
+        },
         win = {
           keys = {
             stopinsert = { "<c-k>", "stopinsert", mode = "t", desc = "enter normal mode" },
