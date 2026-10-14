@@ -264,10 +264,12 @@ return {
       cli = {
         tools = {
           codex = {
-            cmd = { "codex", "--yolo" },
+            -- Keep history in Neovim's terminal buffer for Ctrl-K, then Ctrl-U.
+            cmd = { "codex", "--yolo", "--no-alt-screen" },
           },
         },
         win = {
+          bo = { scrollback = 100000 },
           keys = {
             stopinsert = { "<c-k>", "stopinsert", mode = "t", desc = "enter normal mode" },
             hide_ctrl_q = false,
